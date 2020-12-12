@@ -4,7 +4,7 @@ import "./App.css";
 import Button from "react-bootstrap/Button";
 import { Container } from "react-bootstrap";
 import { TwitterShareButton } from "react-share";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
   const [quotes, setQuotes] = useState("");
@@ -22,24 +22,28 @@ function App() {
     getQuote();
   }, []);
 
-  const shareUrl = "https://stackoverflow.com/";
+  const shareUrl = `"${quotes.text}" 
+${quotes.author}`;
+
   return (
     <div>
       <h1>Welcome to the Random Quote Machine</h1>
       <Container id="container">
-        <Card border="dark" bg="dark" text="white">
+        <Card border="dark" bg="dark" text="white" id="quote-box">
           <Card.Header>Quote</Card.Header>
           <Card.Body>
             <blockquote className="blockquote mb-0">
-              <p>{quotes.text}</p>
-              <footer className="blockquote-footer">{quotes.author}</footer>
+              <p id="text">{quotes.text}</p>
+              <footer className="blockquote-footer" id="author">
+                {quotes.author}
+              </footer>
               <Container className="buttonTop">
-                <Button id="button">
+                <Button id="button" onClick={getQuote}>
                   <i class="fas fa-quote-left"></i>New Quote
                   <i class="fas fa-quote-right"></i>
                 </Button>
                 <Button>
-                  <TwitterShareButton url={shareUrl}>
+                  <TwitterShareButton url={shareUrl} rel="noopener noreferrer">
                     Tweet <i class="fab fa-twitter"></i>
                   </TwitterShareButton>
                 </Button>
